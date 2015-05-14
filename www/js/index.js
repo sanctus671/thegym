@@ -42,7 +42,7 @@ var app = {
 
         function onError(errorMessage)
         {
-            console.log('Ranging beacons did fail: ' + errorMessage);
+            alert('Ranging beacons did fail: ' + errorMessage);
         }
 
         // Request permission from user to access location info.
@@ -61,6 +61,7 @@ var app = {
     displayBeaconList: function()
     {
         // Clear beacon list.
+        $('#found-beacons').empty();
 
 
         var timeNow = Date.now();
@@ -71,7 +72,15 @@ var app = {
             // Only show beacons that are updated during the last 60 seconds.
             if (beacon.timeStamp + 60000 > timeNow)
             {
-                alert(beacon.major);
+                // Create tag to display beacon data.
+                var element = $(
+                    '<li>'
+                    +   'Major: ' + beacon.major + '<br />'
+                    +   'Minor: ' + beacon.minor + '<br />'
+                    + '</li>'
+                );
+
+                $('#found-beacons').append(element);
             }
         });
     }    
