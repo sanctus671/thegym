@@ -1,9 +1,21 @@
+// Dictionary of beacons.
+var beacons = {};
+
+// Timer that displays list of beacons.
+var updateTimer = null;
 
 var app = {
+
+
+
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
     },
+
+
+
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
@@ -42,7 +54,7 @@ var app = {
 
         function onError(errorMessage)
         {
-            alert('Ranging beacons did fail: ' + errorMessage);
+            console.log('Ranging beacons did fail: ' + errorMessage);
         }
 
         // Request permission from user to access location info.
@@ -53,8 +65,8 @@ var app = {
         estimote.beacons.startRangingBeaconsInRegion(
             {}, // Empty region matches all beacons
                 // with the Estimote factory set UUID.
-            onBeaconsRanged,
-            onError);
+            this.onBeaconsRanged,
+            this.onError);
     },
 
 
