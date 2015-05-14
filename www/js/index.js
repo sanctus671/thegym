@@ -18,18 +18,63 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 
+        startScan();
+        updateTimer = setInterval(displayBeaconList, 1000);
+    },
+
+    startScan: function()
+    {
+        function onBeaconsRanged(beaconInfo)
+        {
+            //console.log('onBeaconsRanged: ' + JSON.stringify(beaconInfo))
+            for (var i in beaconInfo.beacons)
+            {
+                // Insert beacon into table of found beacons.
+                // Filter out beacons with invalid RSSI values.
+                var beacon = beaconInfo.beacons[i];
+                if (beacon.rssi < 0)
+                {
+                    beacon.timeStamp = Date.now();
+                    var key = beacon.uuid + ':' + beacon.major + ':' + beacon.minor;
+                    beacons[key] = beacon;
+                }
+            }
+        }
+
+        function onError(errorMessage)
+        {
+            console.log('Ranging beacons did fail: ' + errorMessage);
+        }
+
+        // Request permission from user to access location info.
+        // This is needed on iOS 8.
+        estimote.beacons.requestAlwaysAuthorization();
+
+        // Start ranging beacons.
         estimote.beacons.startRangingBeaconsInRegion(
-            region,
-            app.onBeaconsRanged,
-            app.onError)
+            {}, // Empty region matches all beacons
+                // with the Estimote factory set UUID.
+            onBeaconsRanged,
+            onError);
     },
 
-    onBeaconsRanged: function(){
-        alert("beacon found");
-    },
 
-    onError: function(){
-        alert("there was an error");
-    }
+    displayBeaconList: function()
+    {
+        // Clear beacon list.
+
+
+        var timeNow = Date.now();
+
+        // Update beacon list.
+        $.each(beacons, function(key, beacon)
+        {
+            // Only show beacons that are updated during the last 60 seconds.
+            if (beacon.timeStamp + 60000 > timeNow)
+            {
+                alert(beacon.major);
+            }
+        });
+    }    
 
 };
