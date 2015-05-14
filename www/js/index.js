@@ -1,4 +1,3 @@
-var region = { identifier: 'MyRegion' }
 
 var app = {
     // Application Constructor
