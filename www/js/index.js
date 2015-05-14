@@ -29,8 +29,8 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 
-        startScan();
-        updateTimer = setInterval(displayBeaconList, 1000);
+        app.startScan();
+        updateTimer = setInterval(app.displayBeaconList, 1000);
     },
 
     startScan: function()
