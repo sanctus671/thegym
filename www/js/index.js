@@ -1,39 +1,29 @@
-// Dictionary of beacons.
-var beacons = {};
+var app = (function()
+{
+    // Application object.
+    var app = {};
 
-// Timer that displays list of beacons.
-var updateTimer = null;
+    // Dictionary of beacons.
+    var beacons = {};
 
-var app = {
+    // Timer that displays list of beacons.
+    var updateTimer = null;
 
+    app.initialize = function()
+    {
+        document.addEventListener('deviceready', onDeviceReady, false);
+    };
 
+    function onDeviceReady()
+    {
+        // Start tracking beacons!
+        startScan();
 
+        // Display refresh timer.
+        updateTimer = setInterval(displayBeaconList, 1000);
+    }
 
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-
-
-
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-
-        app.startScan();
-        updateTimer = setInterval(app.displayBeaconList, 1000);
-    },
-
-    startScan: function()
+    function startScan()
     {
         function onBeaconsRanged(beaconInfo)
         {
@@ -65,16 +55,14 @@ var app = {
         estimote.beacons.startRangingBeaconsInRegion(
             {}, // Empty region matches all beacons
                 // with the Estimote factory set UUID.
-            this.onBeaconsRanged,
-            this.onError);
-    },
+            onBeaconsRanged,
+            onError);
+    }
 
-
-    displayBeaconList: function()
+    function displayBeaconList()
     {
         // Clear beacon list.
         $('#found-beacons').empty();
-
 
         var timeNow = Date.now();
 
@@ -89,12 +77,78 @@ var app = {
                     '<li>'
                     +   'Major: ' + beacon.major + '<br />'
                     +   'Minor: ' + beacon.minor + '<br />'
+                    +   proximityHTML(beacon)
+                    +   distanceHTML(beacon)
+                    +   rssiHTML(beacon)
                     + '</li>'
                 );
 
                 $('#found-beacons').append(element);
             }
         });
-    }    
+    }
 
-};
+    function proximityHTML(beacon)
+    {
+        var proximity = beacon.proximity;
+        if (!proximity) { return ''; }
+
+        var proximityNames = [
+            'Unknown',
+            'Immediate',
+            'Near',
+            'Far'];
+
+        return 'Proximity: ' + proximityNames[proximity] + '<br />';
+    }
+
+    function distanceHTML(beacon)
+    {
+        var meters = beacon.distance;
+        if (!meters) { return ''; }
+
+        var distance =
+            (meters > 1) ?
+                meters.toFixed(3) + ' m' :
+                (meters * 100).toFixed(3) + ' cm';
+
+        if (meters < 0) { distance = '?'; }
+
+        return 'Distance: ' + distance + '<br />'
+    }
+
+    function rssiHTML(beacon)
+    {
+        var beaconColors = [
+            'rgb(214,212,34)', // unknown
+            'rgb(215,228,177)', // mint
+            'rgb(165,213,209)', // ice
+            'rgb(45,39,86)', // blueberry
+            'rgb(200,200,200)', // white
+            'rgb(200,200,200)', // transparent
+        ];
+
+        // Get color value.
+        var color = beacon.color || 0;
+        // Eliminate bad values (just in case).
+        color = Math.max(0, color);
+        color = Math.min(5, color);
+        var rgb = beaconColors[color];
+
+        // Map the RSSI value to a width in percent for the indicator.
+        var rssiWidth = 1; // Used when RSSI is zero or greater.
+        if (beacon.rssi < -100) { rssiWidth = 100; }
+        else if (beacon.rssi < 0) { rssiWidth = 100 + beacon.rssi; }
+        // Scale values since they tend to be a bit low.
+        rssiWidth *= 1.5;
+
+        var html =
+            'RSSI: ' + beacon.rssi + '<br />'
+            + '<div style="background:' + rgb + ';height:20px;width:'
+            +       rssiWidth + '%;"></div>'
+
+        return html;
+    }
+
+    return app;
+})();
