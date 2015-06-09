@@ -25,8 +25,7 @@ var app = (function()
 
     function startScan()
     {
-				function onBeaconsRanged(beaconInfo)
-				{
+
 		var logToDom = function (message) {
 			var e = document.createElement('label');
 			e.innerText = message;
