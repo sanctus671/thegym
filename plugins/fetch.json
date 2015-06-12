@@ -1,9 +1,24 @@
 {
-    "pl.makingwaves.estimotebeacons": {
+    "com.unarin.cordova.beacon": {
         "source": {
             "type": "git",
-            "url": "https://github.com/evothings/phonegap-estimotebeacons.git",
-            "subdir": "."
+            "url": "https://github.com/petermetz/cordova-plugin-ibeacon",
+            "subdir": ".",
+            "ref": "3.3.0"
+        }
+    },
+    "de.appplant.cordova.plugin.local-notification": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/katzer/cordova-plugin-local-notifications",
+            "subdir": ".",
+            "ref": "0.8.1"
+        }
+    },
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.device"
         }
     }
 }

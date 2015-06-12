@@ -1,0 +1,224 @@
+
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+
+	font-family: lato, sans-serif;
+	font-weight: normal;
+
+	background: rgb(255,255,255);
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body {
+	margin: 0 0.9em 0 0.9em;
+	font-size: 150%;
+	font-size: 7.5vw;
+}
+
+/* Add a top margin to the content corresponding to the height of the header. */
+body::before {
+	display: block;
+	width: 100%;
+	height: 1.1em; /* Should correspond to header's height. */
+	margin-bottom: 0.4em;
+
+	content: '\0000a0'; /* Non-breaking space (&nbsp;) */
+	font-size: 180%; /* Same as the header's font size. */
+	line-height: 200%; /* Slighly more than the header's line-height. */
+}
+
+/* Add a bottom margin. */
+body::after {
+	display:block;
+	content: '';
+	height: 1em;
+}
+
+a:hover,a:active {
+	color:#ccc;
+
+}
+
+/*  ----------------------------------------------------------
+								HEADER
+	---------------------------------------------------------- */
+
+/* The header's height is determined by the contained text's font size. */
+header {
+	box-sizing: border-box; /* Width & height includes padding & border. */
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+
+	width: 100%;
+	height: 1.1em;
+
+	/* Left and right margins should correspond to body margins. */
+	margin: 0 0 3.45% 0;
+	/* Left padding should correspond to the back button's width. */
+	padding: 1% 2% 1% 2%;
+
+	font-size: 180%;
+	line-height: 100%;
+	text-align: center;
+	vertical-align: middle;
+
+	background: #000;
+
+	z-index: 1000;
+	
+box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+-moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+-webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);	
+}
+
+
+header img.logotype {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	right: 0;
+
+	height: 60%;
+
+	margin: 0 auto;
+
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.sidemenu{
+  top: 5%;
+  left: 10px;
+  right: 0;
+font-size: 50%;
+  text-align: left;
+
+}
+
+.signin{
+  top: 0;
+  left:0;
+  right: 10px;
+  text-align: right;
+  font-size: 67%;
+
+}
+
+.header-button{
+  color: white;
+  position: absolute;
+  height: 60%;
+    z-index: 99999;
+}
+
+header a{
+	color:white;
+}
+
+/*  ----------------------------------------------------------
+								BODY
+	---------------------------------------------------------- */
+
+.info-button{
+  text-align: center;
+  padding-bottom: 40px;
+  text-transform: uppercase;
+  font-weight: 900;
+
+}
+
+.info-button a{
+text-decoration:none;
+color:#ccc;
+
+}
+
+#icy{
+background-color:#99B6FF;
+display:none;
+}
+
+#mint{
+background-color:#8EFFC7;
+display:none;
+}
+
+#blueberry{
+background-color:#5947FD;
+display:none;
+}
+
+#none{
+display:none;
+}
+
+.info-button a:hover, .info-button a:active{
+color:black;
+
+}
+
+.card {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  margin-bottom: 30px;
+}  
+
+.card .head{
+  border-color: #ddd;
+  background-color: #fff;
+  color: #444;
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin: -1px;
+  padding: 16px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 16px;
+}
+
+.card .head .title{
+	font-weight:bold;
+}
+
+.card .content{
+border-color: #ddd;
+  background-color: #fff;
+  color: #444;
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin: -1px;
+  padding: 16px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 16px;
+  }
+
+
+	
+	
+	
+	
+	
+	
+
+
+@media	screen and (orientation: landscape) and (-webkit-min-device-pixel-ratio : 2),
+		screen and (orientation: landscape) and (min--moz-device-pixel-ratio: 2),
+		screen and (orientation: landscape) and (min-device-pixel-ratio : 2) {
+	body { font-size: 4.5vw; }
+}

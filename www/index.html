@@ -7,12 +7,14 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Estimote Beacons</title>
+	<title>Gym Beacons</title>
 
 	<style>
-		@import 'ui/css/evothings-app.css';
+		@import 'ui/css/app.css';
+		@import 'ui/css/font-awesome.min.css';		
+		@import 'ui/css/jquery.modal.css';			
 	</style>
-
+<link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 	<script>
 	// Redirect console.log to Evothings Workbench.
 	if (window.hyper && window.hyper.log) { console.log = hyper.log }
@@ -20,6 +22,7 @@
 
 	<script src="cordova.js"></script>
 	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/jquerymodal/jquery.modal.min.js"></script>	
 	<script src="libs/evothings/evothings.js"></script>
 	<script src="app.js"></script>
 
@@ -28,18 +31,72 @@
 <body>
 
 	<header>
-		<button class="back" onclick="history.back()">
-			<img src="ui/images/arrow-left.svg" />
-		</button>
+		<div class="sidemenu header-button"><a href="#"><i class="fa fa-bars"></i></a></div>
 
 		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
-
+		
+		<div class="signin header-button"><a href="#"><i class="fa fa-times-circle"></i></a></div>
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Estimote Beaconss</h1>
-	<p>Demo of ranging for Estimote Beacons. Works with all factory configured beacons.</p>
-	<ul id="found-beacons" class="dynamic"></ul>
+<div id="signin-status">
+Not signed in
+</div>	
+	
+	
+	
+	
+<div id="blueberry">
+blueberry pie
+</div>
+
+<div id="icy">
+icy marshmellow
+</div>
+
+<div id="mint">
+mint cocktail
+</div>
+
+<div id="none">
+none
+</div>
+	
+	
+	
+<div class="info-button"><a href="#">Open Info</a></div>
+
+<div class="card">
+	<div class="head">
+		<div class="title">The Gym</div>
+		<div class="date">1 day ago</div>
+	</div>
+
+
+	<div class="body">
+		<div class="image"></div>
+		<div class="content">Hey again, just to let you know, this is a demo app from beacons only. There is currently no API implementation in this app.</div>
+
+	</div>
+</div>
+
+<div class="card">
+	<div class="head">
+		<div class="title">The Gym</div>
+		<div class="date">2 days ago</div>
+	</div>
+
+
+	<div class="body">
+		<div class="image"></div>
+		<div class="content">Hi everyone, welcome to the Gym Beacon demo app. This is a demo displaying the beacon functionality. If you are near any beacon regions, you get automatically signed in. Depending on which beacon you are closest too, you will get different information. Try it and see!</div>
+
+	</div>
+</div>
+
+	<ul id="beacon" class="dynamic"></ul>
+
+	<ul id="events" class="dynamic"></ul>
 
 </body>
 
